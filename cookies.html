@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie政策 | 天际工作室 TJStudio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .nav-glass {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cookie-card {
+            background: linear-gradient(135deg, rgba(245, 175, 25, 0.1) 0%, rgba(241, 39, 17, 0.1) 100%);
+            border: 1px solid rgba(245, 175, 25, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .cookie-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(245, 175, 25, 0.1);
+        }
+
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #374151;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .cookie-icon {
+            font-size: 3rem;
+            line-height: 1;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f5af19 0%, #f12711 100%);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="gradient-bg"></div>
+    <div class="grid-bg fixed inset-0 z-[-1] opacity-30"></div>
+
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-xl border-t border-white/10 p-6 z-50 transform translate-y-full transition-transform duration-500">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+                <div class="text-4xl">🍪</div>
+                <div>
+                    <h4 class="font-bold text-white mb-1">我们使用Cookie</h4>
+                    <p class="text-gray-400 text-sm">我们使用Cookie来增强您的浏览体验、分析网站流量并个性化内容。</p>
+                </div>
+            </div>
+            <div class="flex space-x-3">
+                <button onclick="manageCookies()" class="px-4 py-2 text-gray-300 hover:text-white transition-colors text-sm">
+                    管理偏好
+                </button>
+                <button onclick="acceptAllCookies()" class="px-6 py-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-full text-white font-semibold text-sm hover:shadow-lg hover:shadow-orange-500/25 transition-all">
+                    接受全部
+                </button>
+                <button onclick="acceptNecessaryOnly()" class="px-6 py-2 border border-white/30 rounded-full text-white font-semibold text-sm hover:bg-white/10 transition-all">
+                    仅必要Cookie
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="fixed w-full z-50 nav-glass transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer group">
+                    <div class="w-10 h-10 rounded-lg flex items-center justify-center mr-3 transform group-hover:rotate-12 transition-transform duration-300 overflow-hidden">
+                        <img src="icon.png" alt="TJStudio Logo" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <span class="text-2xl font-bold tracking-tighter">天际工作室</span>
+                        <span class="text-xs text-gray-400 block -mt-1 tracking-widest">TJSTUDIO</span>
+                    </div>
+                </a>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium">返回首页</a>
+                    <a href="privacy.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium">隐私政策</a>
+                    <a href="terms.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium">服务条款</a>
+                </div>
+
+                <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center reveal active">
+                <div class="text-6xl mb-6 animate-bounce">🍪</div>
+                <div class="inline-block px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-semibold mb-6">
+                    透明度和控制
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                    Cookie<span class="text-gradient">政策</span>
+                </h1>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    最后更新日期：2024年1月1日
+                </p>
+                <p class="text-gray-500 text-sm mt-4">
+                    了解我们如何使用Cookie来改善您的体验
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 主要内容 -->
+    <section class="py-12 pb-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- 什么是Cookie -->
+            <div class="reveal content-section rounded-2xl p-8 md:p-12 mb-12">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-6 text-white">什么是Cookie？</h2>
+                        <p class="text-gray-400 mb-4 leading-relaxed">
+                            Cookie是当您访问网站时存储在您计算机或移动设备上的小型文本文件。它们被广泛用于使网站正常运行或更高效地运行，以及向网站所有者提供信息。
+                        </p>
+                        <p class="text-gray-400 mb-4 leading-relaxed">
+                            Cookie可以存储各种信息，如您的语言偏好、登录状态、浏览历史等。它们不会损害您的设备，也不会包含病毒。
+                        </p>
+                        <div class="flex items-center space-x-2 text-orange-400 text-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span>您随时可以更改Cookie偏好设置</span>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-2xl blur-3xl"></div>
+                        <div class="relative bg-white/5 rounded-2xl p-8 border border-white/10">
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-300">第一方Cookie</span>
+                                    <span class="text-orange-400 font-mono">tjstudio.com</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%"></div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-300">第三方Cookie</span>
+                                    <span class="text-purple-400 font-mono">analytics.com</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 65%"></div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-300">会话Cookie</span>
+                                    <span class="text-blue-400 font-mono">临时存储</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 40%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cookie类型 -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-center mb-12 reveal">我们使用的Cookie类型</h2>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- 必要Cookie -->
+                    <div class="reveal cookie-card rounded-2xl p-6">
+                        <div class="cookie-icon mb-4">🔒</div>
+                        <h3 class="text-xl font-bold mb-2 text-white">必要Cookie</h3>
+                        <div class="inline-block px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded mb-3">始终启用</div>
+                        <p class="text-gray-400 text-sm mb-4">
+                            这些Cookie对于网站的正常运行至关重要，无法在我们的系统中关闭。
+                        </p>
+                        <ul class="text-xs text-gray-500 space-y-1">
+                            <li>• 用户认证</li>
+                            <li>• 安全功能</li>
+                            <li>• 会话管理</li>
+                            <li>• 负载均衡</li>
+                        </ul>
+                    </div>
+
+                    <!-- 偏好Cookie -->
+                    <div class="reveal cookie-card rounded-2xl p-6" style="transition-delay: 100ms;">
+                        <div class="cookie-icon mb-4">⚙️</div>
+                        <h3 class="text-xl font-bold mb-2 text-white">偏好Cookie</h3>
+                        <div class="inline-block px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded mb-3">功能</div>
+                        <p class="text-gray-400 text-sm mb-4">
+                            这些Cookie使网站能够提供增强的功能和个性化设置。
+                        </p>
+                        <ul class="text-xs text-gray-500 space-y-1">
+                            <li>• 语言设置</li>
+                            <li>• 地区选择</li>
+                            <li>• 主题偏好</li>
+                            <li>• 字体大小</li>
+                        </ul>
+                    </div>
+
+                    <!-- 统计Cookie -->
+                    <div class="reveal cookie-card rounded-2xl p-6" style="transition-delay: 200ms;">
+                        <div class="cookie-icon mb-4">📊</div>
+                        <h3 class="text-xl font-bold mb-2 text-white">统计Cookie</h3>
+                        <div class="inline-block px-2 py-1 bg-purple-500/20 text-purple-400 text-xs rounded mb-3">分析</div>
+                        <p class="text-gray-400 text-sm mb-4">
+                            这些Cookie帮助我们了解访客如何与网站互动，发现错误并改进功能。
+                        </p>
+                        <ul class="text-xs text-gray-500 space-y-1">
+                            <li>• 页面浏览量</li>
+                            <li>• 流量来源</li>
+                            <li>• 用户行为</li>
+                            <li>• 错误追踪</li>
+                        </ul>
+                    </div>
+
+                    <!-- 营销Cookie -->
+                    <div class="reveal cookie-card rounded-2xl p-6" style="transition-delay: 300ms;">
+                        <div class="cookie-icon mb-4">🎯</div>
+                        <h3 class="text-xl font-bold mb-2 text-white">营销Cookie</h3>
+                        <div class="inline-block px-2 py-1 bg-pink-500/20 text-pink-400 text-xs rounded mb-3">广告</div>
+                        <p class="text-gray-400 text-sm mb-4">
+                            这些Cookie用于追踪访客在网站上的活动，以显示相关且有吸引力的广告。
+                        </p>
+                        <ul class="text-xs text-gray-500 space-y-1">
+                            <li>• 个性化广告</li>
+                            <li>• 广告效果</li>
+                            <li>• 社交媒体</li>
+                            <li>• 再营销</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-divider reveal"></div>
+
+            <!-- 详细Cookie列表 -->
+            <div class="reveal content-section rounded-2xl p-8 md:p-12 mb-12 mt-12">
+                <h2 class="text-2xl font-bold mb-8 text-white">我们使用的具体Cookie</h2>
+                
+                <div class="space-y-6">
+                    <!-- 必要Cookie详情 -->
+                    <div class="border border-white/10 rounded-xl overflow-hidden">
+                        <div class="bg-white/5 px-6 py-4 flex items-center justify-between cursor-pointer" onclick="toggleSection('necessary')">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-2xl">🔒</span>
+                                <h3 class="font-bold text-white">必要Cookie</h3>
+                                <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded">始终启用</span>
+                            </div>
+                            <svg id="necessary-icon" class="w-5 h-5 text-gray-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                        <div id="necessary-content" class="hidden px-6 py-4 border-t border-white/10">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="text-gray-400 border-b border-white/10">
+                                        <th class="text-left py-2">Cookie名称</th>
+                                        <th class="text-left py-2">提供商</th>
+                                        <th class="text-left py-2">目的</th>
+                                        <th class="text-left py-2">有效期</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-300">
+                                    <tr class="border-b border-white/5">
+                                        <td class="py-3 font-mono text-xs">session_id</td>
+                                        <td class="py-3">TJStudio</td>
+                                        <td class="py-3">维护用户会话状态</td>
+                                        <td class="py-3">会话</td>
+                                    </tr>
+                                    <tr class="border-b border-white/5">
+                                        <td class="py-3 font-mono text-xs">csrf_token</td>
+                                        <td class="py-3">TJStudio</td>
+                                        <td class="py-3">防止跨站请求伪造攻击</td>
+                                        <td class="py-3">会话</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 font-mono text-xs">cookie_consent</td>
+                                        <td class="py-3">TJStudio</td>
+                                        <td class="py-3">存储Cookie偏好设置</td>
+                                        <td class="py-3">1年</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 偏好Cookie详情 -->
+                    <div class="border border-white/10 rounded-xl overflow-hidden">
+                        <div class="bg-white/5 px-6 py-4 flex items-center justify-between cursor-pointer" onclick="toggleSection('preferences')">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-2xl">⚙️</span>
+                                <h3 class="font-bold text-white">偏好Cookie</h3>
+                                <label class="toggle-switch" onclick="event.stopPropagation()">
+                                    <input type="checkbox" id="pref-toggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <svg id="preferences-icon" class="w-5 h-5 text-gray-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                        <div id="preferences-content" class="hidden px-6 py-4 border-t border-white/10">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="text-gray-400 border-b border-white/10">
+                                        <th class="text-left py-2">Cookie名称</th>
+                                        <th class="text-left py-2">提供商</th>
+                                        <th class="text-left py-2">目的</th>
+                                        <th class="text-left py-2">有效期</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-300">
+                                    <tr class="border-b border-white/5">
+                                        <td class="py-3 font-mono text-xs">lang</td>
+                                        <td class="py-3">TJStudio</td>
+                                        <td class="py-3">记住语言选择</td>
+                                        <td class="py-3">1年</td>
+                                    </tr>
+                                    <tr class="border-b border-white/5">
+                                        <td class="py-3 font-mono text-xs">theme</td>
+                                        <td class="py-3">TJStudio</td>
+                                        <td class="py-3">记住主题偏好（暗/亮模式）</td>
+                                        <td class="py-3">1年</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 font-mono text-xs">font_size</td>
+                                        <td class="py-3">TJStudio</td>
+                                        <td class="py-3">记住字体大小设置</td>
+                                        <td class="py-3">1年</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 统计Cookie详情 -->
+                    <div class="border border-white/10 rounded-xl overflow-hidden">
+                        <div class="bg-white/5 px-6 py-4 flex items-center justify-between cursor-pointer" onclick="toggleSection('analytics')">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-2xl">📊</span>
+                                <h3 class="font-bold text-white">统计Cookie</h3>
+                                <label class="toggle-switch" onclick="event.stopPropagation()">
+                                    <input type="checkbox" id="analytics-toggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <svg id="analytics-icon" class="w-5 h-5 text-gray-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                        <div id="analytics-content" class="hidden px-6 py-4 border-t border-white/10">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="text-gray-400 border-b border-white/10">
+                                        <th class="text-left py-2">Cookie名称</th>
+                                        <th class="text-left py-2">提供商</th>
+                                        <th class="text-left py-2">目的</th>
+                                        <th class="text-left py-2">有效期</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-300">
+                                    <tr class="border-b border-white/5">
+                                        <td class="py-3 font-mono text-xs">_ga</td>
+                                        <td class="py-3">Google Analytics</td>
+                                        <td class="py-3">区分用户</td>
+                                        <td class="py-3">2年</td>
+                                    </tr>
+                                    <tr class="border-b border-white/5">
+                                        <td class="py-3 font-mono text-xs">_gid</td>
+                                        <td class="py-3">Google Analytics</td>
+                                        <td class="py-3">区分用户</td>
+                                        <td class="py-3">24小时</td>
+                                    </tr>
+                                    <tr class="border-b border-white/5">
+                                        <td class="py-3 font-mono text-xs">_gat</td>
+                                        <td class="py-3">Google Analytics</td>
+                                        <td class="py-3">限制请求速率</td>
+                                        <td class="py-3">1分钟</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 font-mono text-xs">_hjid</td>
+                                        <td class="py-3">Hotjar</td>
+                                        <td class="py-3">用户行为分析</td>
+                                        <td class="py-3">1年</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 营销Cookie详情 -->
+                    <div class="border border-white/10 rounded-xl overflow-hidden">
+                        <div class="bg-white/5 px-6 py-4 flex items-center justify-between cursor-pointer" onclick="toggleSection('marketing')">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-2xl">🎯</span>
+                                <h3 class="font-bold text-white">营销Cookie</h3>
+                                <label class="toggle-switch" onclick="event.stopPropagation()">
+                                    <input type="checkbox" id="marketing-toggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <svg id="marketing-icon" class="w-5 h-5 text-gray-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                        <div id="marketing-content" class="hidden px-6 py-4 border-t border-white/10">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="text-gray-400 border-b border-white/10">
+                                        <th class="text-left py-2">Cookie名称</th>
+                                        <th class="text-left py-2">提供商</th>
+                                        <th class="text-left py-2">目的</th>
+                                        <th class="text-left py-2">有效期</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-300">
+                                    <tr class="border-b border-white/5">
+                                        <td class="py-3 font-mono text-xs">_fbp</td>
+                                        <td class="py-3">Facebook</td>
+                                        <td class="py-3">Facebook广告投递</td>
+                                        <td class="py-3">3个月</td>
+                                    </tr>
+                                    <tr class="border-b border-white/5">
+                                        <td class="py-3 font-mono text-xs">fr</td>
+                                        <td class="py-3">Facebook</td>
+                                        <td class="py-3">广告个性化</td>
+                                        <td class="py-3">3个月</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 font-mono text-xs">ads/ga-audiences</td>
+                                        <td class="py-3">Google</td>
+                                        <td class="py-3">再营销</td>
+                                        <td class="py-3">会话</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-divider reveal"></div>
+
+            <!-- 管理Cookie -->
+            <div class="reveal content-section rounded-2xl p-8 md:p-12 mb-12 mt-12">
+                <h2 class="text-2xl font-bold mb-6 text-white">如何管理Cookie</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-200 mb-4">浏览器设置</h3>
+                        <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                            大多数网络浏览器允许您通过设置控制Cookie。您可以选择接受或拒绝Cookie，或在发送Cookie时收到通知。请注意，禁用某些Cookie可能影响网站功能。
+                        </p>
+                        <div class="space-y-2">
+                            <a href="https://support.google.com/chrome?p=cpn_cookies" class="flex items-center text-blue-400 hover:text-blue-300 text-sm">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                                Chrome设置指南
+                            </a>
+                            <a href="https://www.mozilla.org/zh-CN/privacy/websites/cookie-settings/" class="flex items-center text-blue-400 hover:text-blue-300 text-sm">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                                Firefox设置指南
+                            </a>
+                            <a href="https://www.apple.com.cn/legal/privacy/szh/cookies/" class="flex items-center text-blue-400 hover:text-blue-300 text-sm">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                                Safari设置指南
+                            </a>
+                            <a href="https://support.microsoft.com/zh-cn/windows/%E5%9C%A8-microsoft-edge-%E4%B8%AD%E7%AE%A1%E7%90%86-cookie-%E6%9F%A5%E7%9C%8B-%E5%85%81%E8%AE%B8-%E9%98%BB%E6%AD%A2-%E5%88%A0%E9%99%A4%E5%92%8C%E4%BD%BF%E7%94%A8-168dab11-0753-043d-7c16-ede5947fc64d" class="flex items-center text-blue-400 hover:text-blue-300 text-sm">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                                Edge设置指南
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-200 mb-4">第三方工具</h3>
+                        <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                            您还可以使用以下工具来管理广告Cookie：
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex items-start space-x-2">
+                                <span class="text-orange-400">•</span>
+                                <span>您的在线选择（Your Online Choices）：控制行为广告Cookie</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <span class="text-orange-400">•</span>
+                                <span>网络广告倡议（NAI）：选择退出成员网络的Cookie</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <span class="text-orange-400">•</span>
+                                <span>Google广告设置：管理Google广告个性化</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 更多信息 -->
+            <div class="reveal content-section rounded-2xl p-8 md:p-12 bg-gradient-to-br from-orange-600/5 to-red-600/5 border-orange-500/20">
+                <h2 class="text-2xl font-bold mb-6 text-white">更多信息</h2>
+                <p class="text-gray-400 mb-6 leading-relaxed">
+                    如果您对本Cookie政策有任何疑问，或需要更多关于我们使用Cookie的信息，请随时与我们联系：
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="mailto:leslie690306@outlook.com" class="inline-flex items-center justify-center px-6 py-3 bg-white/10 rounded-lg text-white hover:bg-white/20 transition-colors">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        leslie690306@outlook.com
+                    </a>
+                    <a href="privacy.html" class="inline-flex items-center justify-center px-6 py-3 border border-white/30 rounded-lg text-white hover:bg-white/10 transition-colors">
+                        查看隐私政策
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+<footer class="bg-black border-t border-white/10 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-4 gap-8 mb-8">
+            <div class="col-span-2">
+                <div class="flex items-center mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-2">
+                        <span class="text-white font-bold text-sm">TJ</span>
+                    </div>
+                    <span class="text-xl font-bold">天际工作室</span>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
+                    专注于创造卓越的数字体验，将创意与技术完美融合，为品牌注入新的活力。
+                </p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">快速链接</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="#about" class="hover:text-white transition-colors">关于我们</a></li>
+                    <li><a href="#services" class="hover:text-white transition-colors">服务</a></li>
+                    <li><a href="#portfolio" class="hover:text-white transition-colors">作品</a></li>
+                    <li><a href="#contact" class="hover:text-white transition-colors">联系</a></li>
+					<li><a href=game.html class="hover:text-white transition-colors">小游戏</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">法律信息</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="privacy.html" class="hover:text-white transition-colors">隐私政策</a></li>
+                    <li><a href="terms.html" class="hover:text-white transition-colors">服务条款</a></li>
+                    <li><a href="cookies.html" class="hover:text-white transition-colors">Cookie政策</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-500 text-sm">
+                © <span id="copyright-year"></span> 天际工作室 TJStudio. All rights reserved.
+            </p>
+            <p class="text-gray-600 text-sm mt-2 md:mt-0">
+                Made with passion in Kunming
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // 动态设置版权年份
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+</script>
+
+    <script>
+        // Cookie管理功能
+        function showCookieBanner() {
+            setTimeout(() => {
+                document.getElementById('cookie-banner').classList.remove('translate-y-full');
+            }, 1000);
+        }
+
+        function hideCookieBanner() {
+            document.getElementById('cookie-banner').classList.add('translate-y-full');
+        }
+
+        function acceptAllCookies() {
+            localStorage.setItem('cookieConsent', JSON.stringify({
+                necessary: true,
+                preferences: true,
+                analytics: true,
+                marketing: true,
+                timestamp: new Date().toISOString()
+            }));
+            hideCookieBanner();
+            updateToggles();
+        }
+
+        function acceptNecessaryOnly() {
+            localStorage.setItem('cookieConsent', JSON.stringify({
+                necessary: true,
+                preferences: false,
+                analytics: false,
+                marketing: false,
+                timestamp: new Date().toISOString()
+            }));
+            hideCookieBanner();
+            updateToggles();
+        }
+
+        function manageCookies() {
+            hideCookieBanner();
+            document.getElementById('preferences-content').classList.remove('hidden');
+            document.getElementById('analytics-content').classList.remove('hidden');
+            document.getElementById('marketing-content').classList.remove('hidden');
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        function updateToggles() {
+            const consent = JSON.parse(localStorage.getItem('cookieConsent') || '{}');
+            document.getElementById('pref-toggle').checked = consent.preferences || false;
+            document.getElementById('analytics-toggle').checked = consent.analytics || false;
+            document.getElementById('marketing-toggle').checked = consent.marketing || false;
+        }
+
+        function toggleSection(section) {
+            const content = document.getElementById(section + '-content');
+            const icon = document.getElementById(section + '-icon');
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // 监听toggle变化
+        ['pref-toggle', 'analytics-toggle', 'marketing-toggle'].forEach(id => {
+            document.getElementById(id)?.addEventListener('change', function() {
+                const consent = JSON.parse(localStorage.getItem('cookieConsent') || '{}');
+                const key = id.replace('-toggle', '').replace('pref', 'preferences');
+                consent[key] = this.checked;
+                consent.timestamp = new Date().toISOString();
+                localStorage.setItem('cookieConsent', JSON.stringify(consent));
+            });
+        });
+
+        // 滚动显示动画
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        function initNavbar() {
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 100) {
+                    navbar.classList.add('shadow-lg');
+                } else {
+                    navbar.classList.remove('shadow-lg');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            revealOnScroll();
+            initNavbar();
+            window.addEventListener('scroll', revealOnScroll);
+            
+            // 检查是否已设置Cookie偏好
+            if (!localStorage.getItem('cookieConsent')) {
+                showCookieBanner();
+            } else {
+                updateToggles();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -3,817 +3,948 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>天际工作室 - 用热爱创造未来</title>
+    <title>天际工作室 TJStudio | 用热爱创造未来</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #3b82f6;
-            --text-dark: #1f2937;
-            --text-light: #6b7280;
-            --bg-light: #f9fafb;
-            --white: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.18);
-        }
-
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
             overflow-x: hidden;
         }
 
-        /* 导航栏样式 */
-        nav {
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* 动态背景渐变 */
+        .gradient-bg {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px) saturate(180%);
-            -webkit-backdrop-filter: blur(12px) saturate(180%);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
-            transition: all 0.3s ease;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        /* 主页英雄区域 */
-        .hero {
-            margin-top: 80px;
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-            position: relative;
+        /* 粒子效果 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
             overflow: hidden;
         }
 
-        .hero::before {
-            content: "";
+        .particle {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(30, 64, 175, 0.15) 0%, transparent 40%);
-            z-index: 0;
-        }
-
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .hero-text h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--white);
-        }
-
-        .hero-text p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: var(--white);
-            color: var(--primary-color);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero-image {
-            position: relative;
-        }
-
-        .hero-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        /* 服务部分 */
-        .services {
-            padding: 5rem 0;
-            background: var(--bg-light);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--text-dark);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--primary-color);
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            color: var(--white);
+            animation: float 20s infinite linear;
         }
 
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-        }
-
-        .service-card p {
-            color: var(--text-light);
-            line-height: 1.8;
-        }
-
-        /* 关于我们部分 */
-        .about {
-            padding: 5rem 0;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-text h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .about-text p {
-            color: var(--text-light);
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .stat-item h3 {
-            font-size: 2rem;
-            color: var(--primary-color);
-        }
-
-        .stat-item p {
-            color: var(--text-light);
-        }
-
-        /* 作品集部分 */
-        .portfolio {
-            padding: 5rem 0;
-            background: var(--bg-light);
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .portfolio-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .portfolio-item:hover {
-            transform: scale(1.05);
-        }
-
-        .portfolio-item img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-        }
-
-        .portfolio-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(37, 99, 235, 0.85);
-            backdrop-filter: blur(4px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .portfolio-item:hover .portfolio-overlay {
-            opacity: 1;
-        }
-
-        .portfolio-overlay h3 {
-            color: var(--white);
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .portfolio-overlay p {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* 联系部分 */
-        .contact {
-            padding: 5rem 0;
-        }
-
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-        }
-
-        .contact-form {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
-        .submit-button {
-            width: 100%;
-            padding: 1rem;
-            background: var(--primary-color);
-            color: var(--white);
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .submit-button:hover {
-            background: var(--secondary-color);
-            transform: translateY(-2px);
-        }
-
-        .contact-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
-            color: var(--white);
-        }
-
-        /* 页脚 */
-        footer {
-            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-            color: var(--white);
-            padding: 3rem 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        footer::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 30%),
-                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 30%);
-            z-index: 0;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .social-links a {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .social-links a:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-3px);
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero-content,
-            .about-content,
-            .contact-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-        }
-
-        /* 动画效果 */
-        @keyframes fadeInUp {
+        @keyframes float {
             from {
+                transform: translateY(100vh) translateX(0);
                 opacity: 0;
-                transform: translateY(30px);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
             }
             to {
-                opacity: 1;
-                transform: translateY(0);
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
             }
         }
 
-        .fade-in-up {
-            animation: fadeInUp 0.6s ease-out;
+        /* 导航栏毛玻璃效果 */
+        .nav-glass {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* 滚动条样式 */
-        ::-webkit-scrollbar {
-            width: 10px;
+        /* 文字渐变效果 */
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        ::-webkit-scrollbar-track {
-            background: var(--bg-light);
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 5px;
+        /* 按钮发光效果 */
+        .btn-glow {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--secondary-color);
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-glow:hover::before {
+            left: 100%;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        /* 卡片悬浮效果 */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 滚动显示动画 */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 数字计数动画 */
+        .counter {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* 图片悬浮缩放 */
+        .img-zoom {
+            overflow: hidden;
+        }
+
+        .img-zoom img {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .img-zoom:hover img {
+            transform: scale(1.1);
+        }
+
+        /* 加载动画 */
+        .loader {
+            border-top-color: #667eea;
+            -webkit-animation: spinner 1.5s linear infinite;
+            animation: spinner 1.5s linear infinite;
+        }
+
+        @keyframes spinner {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 光标效果 */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot {
+            width: 5px;
+            height: 5px;
+            background-color: white;
+        }
+
+        .cursor-outline {
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        /* 移动端菜单 */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        /* 视差滚动 */
+        .parallax {
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        /* 网格背景 */
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* 文字闪烁效果 */
+        .shimmer {
+            background: linear-gradient(90deg, #fff 0%, #888 50%, #fff 100%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+
+        /* 脉冲动画 */
+        .pulse-ring {
+            position: absolute;
+            border-radius: 50%;
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.33); opacity: 1; }
+            80%, 100% { transform: scale(2); opacity: 0; }
         }
     </style>
 </head>
-<body>
+<body class="antialiased">
+
+    <!-- 动态背景 -->
+    <div class="gradient-bg"></div>
+    <div class="particles" id="particles"></div>
+    <div class="grid-bg fixed inset-0 z-[-1] opacity-30"></div>
+
+    <!-- 自定义光标（桌面端） -->
+    <div class="cursor-dot hidden md:block" id="cursor-dot"></div>
+    <div class="cursor-outline hidden md:block" id="cursor-outline"></div>
+
     <!-- 导航栏 -->
-    <nav id="navbar">
-        <div class="nav-container">
-            <div class="logo">天际工作室 - TJStudio</div>
-            <ul class="nav-links">
-                <li><a href="#home">首页</a></li>
-                <li><a href="#services">服务</a></li>
-                <li><a href="#about">关于我们</a></li>
-                <li><a href="#portfolio">作品集</a></li>
-                <li><a href="#contact">联系我们</a></li>
-            </ul>
+    <nav class="fixed w-full z-50 nav-glass transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer group" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div class="w-10 h-10 rounded-lg flex items-center justify-center mr-3 transform group-hover:rotate-12 transition-transform duration-300 overflow-hidden">
+                        <img src="icon.png" alt="TJStudio Logo" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <span class="text-2xl font-bold tracking-tighter">天际工作室</span>
+                        <span class="text-xs text-gray-400 block -mt-1 tracking-widest">TJSTUDIO</span>
+                    </div>
+                </div>
+
+                <!-- 桌面菜单 -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium tracking-wide hover:tracking-wider">首页</a>
+                    <a href="#about" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium tracking-wide hover:tracking-wider">关于我们</a>
+                    <a href="#services" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium tracking-wide hover:tracking-wider">服务</a>
+                    <a href="#portfolio" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium tracking-wide hover:tracking-wider">作品</a>
+                    <a href="#contact" class="btn-glow px-6 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full text-sm font-semibold text-white shadow-lg hover:shadow-blue-500/25 transition-all duration-300">联系我们</a>
+                </div>
+
+                <!-- 移动端菜单按钮 -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 移动端菜单 -->
+        <div class="mobile-menu fixed top-0 right-0 h-full w-64 bg-black/95 backdrop-blur-xl md:hidden z-50" id="mobile-menu">
+            <div class="p-6">
+                <button id="close-menu" class="absolute top-6 right-6 text-gray-400 hover:text-white">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <div class="mt-12 space-y-6">
+                    <a href="#home" class="block text-xl text-gray-300 hover:text-white transition-colors">首页</a>
+                    <a href="#about" class="block text-xl text-gray-300 hover:text-white transition-colors">关于我们</a>
+                    <a href="#services" class="block text-xl text-gray-300 hover:text-white transition-colors">服务</a>
+                    <a href="#portfolio" class="block text-xl text-gray-300 hover:text-white transition-colors">作品</a>
+                    <a href="#contact" class="block text-xl text-blue-400 hover:text-blue-300">联系我们</a>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <!-- 主页英雄区域 -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="hero-text fade-in-up">
-                <h1>用热爱创造未来</h1>
-                <p>天际工作室是由几个初中生创建的工作室，从概念到实现，我们与您同行。</p>
-                <a href="#contact" class="cta-button">开始您的项目</a>
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black"></div>
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="reveal active">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 tracking-tight leading-tight">
+                    <span class="block text-white mb-2">用热爱</span>
+                    <span class="text-gradient italic">创造未来</span>
+                </h1>
+                <p class="mt-6 text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto font-light leading-relaxed">
+                    天际工作室致力于将创意与技术完美融合，<br class="hidden md:block">打造令人惊叹的数字体验
+                </p>
+                <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#portfolio" class="btn-glow px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                        查看作品
+                    </a>
+                    <a href="#contact" class="px-8 py-4 border border-white/30 rounded-full font-bold text-lg hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+                        开始合作
+                    </a>
+                </div>
             </div>
-            <div class="hero-image fade-in-up">
-                <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="创意设计工作室">
+
+            <!-- 滚动指示器 -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
             </div>
         </div>
     </section>
 
-    <!-- 服务部分 -->
-    <section id="services" class="services">
-        <div class="container">
-            <h2 class="section-title">我们的服务</h2>
-            <div class="services-grid">
-                <div class="service-card fade-in-up">
-                    <div class="service-icon">🎨</div>
-                    <h3>品牌设计</h3>
-                    <p>从logo到完整的品牌视觉识别系统，我们帮助您建立独特而有影响力的品牌形象。</p>
+    <!-- 数据统计 Section -->
+    <section class="py-20 border-y border-white/10 bg-black/50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="reveal">
+                    <div class="text-4xl md:text-5xl font-bold text-gradient counter" data-target="150">0</div>
+                    <div class="mt-2 text-gray-400 text-sm uppercase tracking-wider">完成项目</div>
                 </div>
-                <div class="service-card fade-in-up">
-                    <div class="service-icon">💻</div>
-                    <h3>网站开发</h3>
-                    <p>响应式、现代化的网站设计与开发，确保您的在线形象专业且引人注目。</p>
+                <div class="reveal">
+                    <div class="text-4xl md:text-5xl font-bold text-gradient counter" data-target="50">0</div>
+                    <div class="mt-2 text-gray-400 text-sm uppercase tracking-wider">合作客户</div>
                 </div>
-                <div class="service-card fade-in-up">
-                    <div class="service-icon">📱</div>
-                    <h3>移动应用</h3>
-                    <p>原生和跨平台移动应用开发，为用户提供流畅、直观的移动体验。</p>
+                <div class="reveal">
+                    <div class="text-4xl md:text-5xl font-bold text-gradient counter" data-target="5">0</div>
+                    <div class="mt-2 text-gray-400 text-sm uppercase tracking-wider">年经验</div>
                 </div>
-                <div class="service-card fade-in-up">
-                    <div class="service-icon">📊</div>
-                    <h3>数字营销</h3>
-                    <p>制定全面的数字营销策略，帮助您在竞争激烈的市场中脱颖而出。</p>
-                </div>
-                <div class="service-card fade-in-up">
-                    <div class="service-icon">🎯</div>
-                    <h3>用户体验设计</h3>
-                    <p>以用户为中心的设计理念，创造直观、愉悦的产品体验。</p>
-                </div>
-                <div class="service-card fade-in-up">
-                    <div class="service-icon">📸</div>
-                    <h3>摄影与视频</h3>
-                    <p>专业的摄影和视频制作服务，捕捉和展示您品牌的独特故事。</p>
+                <div class="reveal">
+                    <div class="text-4xl md:text-5xl font-bold text-gradient counter" data-target="20">0</div>
+                    <div class="mt-2 text-gray-400 text-sm uppercase tracking-wider">团队成员</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 关于我们部分 -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text fade-in-up">
-                    <h2>关于天际工作室</h2>
-                    <p>成立于2018年，天际工作室是几个初中生搭建的工作室。</p>
-                    <p>我们相信热爱可以创造未来。</p>
-                    <div class="stats">
-                        <div class="stat-item">
-                            <h3>500+</h3>
-                            <p>完成项目</p>
+    <!-- 关于我们 Section -->
+    <section id="about" class="py-32 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <h2 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-4">关于我们</h2>
+                    <h3 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                        突破边界<br>
+                        <span class="text-gray-500">定义未来</span>
+                    </h3>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                        天际工作室成立于2020年，是一家专注于数字创意与技术研发的工作室。我们相信设计的力量可以改变世界，技术的创新能够重塑体验。
+                    </p>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
+                        从品牌视觉到交互体验，从网站开发到移动应用，我们为客户提供全方位的数字解决方案。每一个项目，我们都倾注全力，追求卓越。
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex -space-x-2">
+                            <img class="w-10 h-10 rounded-full border-2 border-black" src="https://i.pravatar.cc/150?img=1" alt="Team member">
+                            <img class="w-10 h-10 rounded-full border-2 border-black" src="https://i.pravatar.cc/150?img=2" alt="Team member">
+                            <img class="w-10 h-10 rounded-full border-2 border-black" src="https://i.pravatar.cc/150?img=3" alt="Team member">
+                            <div class="w-10 h-10 rounded-full border-2 border-black bg-gray-800 flex items-center justify-center text-xs text-white">+17</div>
                         </div>
-                        <div class="stat-item">
-                            <h3>200+</h3>
-                            <p>满意客户</p>
-                        </div>
-                        <div class="stat-item">
-                            <h3>5年</h3>
-                            <p>行业经验</p>
-                        </div>
+                        <span class="text-sm text-gray-400">专业团队为您服务</span>
                     </div>
                 </div>
-                <div class="about-image fade-in-up">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="我们的团队" style="width: 100%; border-radius: 15px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);">
+                <div class="reveal relative">
+                    <div class="relative rounded-2xl overflow-hidden img-zoom">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" alt="Team working" class="w-full h-auto object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 w-48 h-48 bg-blue-600/20 rounded-full blur-3xl"></div>
+                    <div class="absolute -top-6 -right-6 w-48 h-48 bg-purple-600/20 rounded-full blur-3xl"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 作品集部分 -->
-    <section id="portfolio" class="portfolio">
-        <div class="container">
-            <h2 class="section-title">作品集</h2>
-            <div class="portfolio-grid">
-                <div class="portfolio-item fade-in-up">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="项目1">
-                    <div class="portfolio-overlay">
-                        <h3>科技公司品牌重塑</h3>
-                        <p>完整的品牌识别系统设计</p>
+    <!-- 服务 Section -->
+    <section id="services" class="py-32 bg-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-4">我们的服务</h2>
+                <h3 class="text-4xl md:text-5xl font-bold mb-6">全方位数字解决方案</h3>
+                <p class="text-gray-400 max-w-2xl mx-auto text-lg">从概念到落地，我们提供端到端的创意与技术服务</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 服务卡片 1 -->
+                <div class="card-hover rounded-2xl p-8 reveal group cursor-pointer">
+                    <div class="w-14 h-14 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-7 h-7 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">网站开发</h4>
+                    <p class="text-gray-400 leading-relaxed">响应式网站设计与开发，注重用户体验与视觉美感的完美结合。</p>
+                    <div class="mt-6 flex items-center text-blue-400 text-sm font-semibold group-hover:translate-x-2 transition-transform">
+                        了解更多 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </div>
                 </div>
-                <div class="portfolio-item fade-in-up">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="项目2">
-                    <div class="portfolio-overlay">
-                        <h3>电商平台设计</h3>
-                        <p>用户友好的购物体验</p>
+
+                <!-- 服务卡片 2 -->
+                <div class="card-hover rounded-2xl p-8 reveal group cursor-pointer" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">品牌设计</h4>
+                    <p class="text-gray-400 leading-relaxed">从Logo到完整的品牌视觉系统，塑造独特且令人难忘的品牌形象。</p>
+                    <div class="mt-6 flex items-center text-purple-400 text-sm font-semibold group-hover:translate-x-2 transition-transform">
+                        了解更多 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </div>
                 </div>
-                <div class="portfolio-item fade-in-up">
-                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="项目3">
-                    <div class="portfolio-overlay">
-                        <h3>移动应用开发</h3>
-                        <p>创新的健康管理应用</p>
+
+                <!-- 服务卡片 3 -->
+                <div class="card-hover rounded-2xl p-8 reveal group cursor-pointer" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 bg-pink-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-7 h-7 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
                     </div>
-                </div>
-                <div class="portfolio-item fade-in-up">
-                    <img src="https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="项目4">
-                    <div class="portfolio-overlay">
-                        <h3>企业网站设计</h3>
-                        <p>现代化的企业形象展示</p>
-                    </div>
-                </div>
-                <div class="portfolio-item fade-in-up">
-                    <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="项目5">
-                    <div class="portfolio-overlay">
-                        <h3>社交媒体营销</h3>
-                        <p>全方位的品牌推广策略</p>
-                    </div>
-                </div>
-                <div class="portfolio-item fade-in-up">
-                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="项目6">
-                    <div class="portfolio-overlay">
-                        <h3>产品摄影</h3>
-                        <p>高品质的商业摄影服务</p>
+                    <h4 class="text-xl font-bold mb-3">移动应用</h4>
+                    <p class="text-gray-400 leading-relaxed">Android原生应用开发，以及跨平台解决方案。</p>
+                    <div class="mt-6 flex items-center text-pink-400 text-sm font-semibold group-hover:translate-x-2 transition-transform">
+                        了解更多 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 联系部分 -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">联系我们</h2>
-            <div class="contact-content">
-                <form class="contact-form fade-in-up">
-                    <div class="form-group">
-                        <label for="name">您的姓名</label>
-                        <input type="text" id="name" name="name" required>
+    <!-- 作品集 Section -->
+    <section id="portfolio" class="py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <div>
+                    <h2 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-4">精选作品</h2>
+                    <h3 class="text-4xl md:text-5xl font-bold">我们的项目案例</h3>
+                </div>
+                <a href=https://space.bilibili.com/691377351?spm_id_from=333.337.0.0 class="mt-6 md:mt-0 text-gray-400 hover:text-white transition-colors flex items-center group">
+                    查看全部作品 
+                    <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 项目 1 -->
+                <div class="group relative overflow-hidden rounded-2xl reveal cursor-pointer">
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=450&fit=crop" alt="Project 1" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
                     </div>
-                    <div class="form-group">
-                        <label for="email">电子邮箱</label>
-                        <input type="email" id="email" name="email" required>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-blue-400 text-sm font-semibold mb-2">网站开发</span>
+                        <h4 class="text-xl font-bold mb-2">TechFlow 官网</h4>
+                        <p class="text-gray-300 text-sm">企业级官网设计与开发</p>
                     </div>
-                    <div class="form-group">
-                        <label for="phone">联系电话</label>
-                        <input type="tel" id="phone" name="phone">
+                </div>
+
+                <!-- 项目 2 -->
+                <div class="group relative overflow-hidden rounded-2xl reveal cursor-pointer" style="transition-delay: 100ms;">
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=450&fit=crop" alt="Project 2" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
                     </div>
-                    <div class="form-group">
-                        <label for="message">项目需求</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-purple-400 text-sm font-semibold mb-2">移动应用</span>
+                        <h4 class="text-xl font-bold mb-2">HealthPlus App</h4>
+                        <p class="text-gray-300 text-sm">健康管理移动应用</p>
                     </div>
-                    <button type="submit" class="submit-button">发送消息</button>
-                </form>
-                <div class="contact-info fade-in-up">
-                    <h3>联系方式</h3>
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
+                </div>
+
+                <!-- 项目 3 -->
+                <div class="group relative overflow-hidden rounded-2xl reveal cursor-pointer" style="transition-delay: 200ms;">
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=450&fit=crop" alt="Project 3" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-pink-400 text-sm font-semibold mb-2">品牌设计</span>
+                        <h4 class="text-xl font-bold mb-2">Nova 品牌视觉</h4>
+                        <p class="text-gray-300 text-sm">全套品牌识别系统设计</p>
+                    </div>
+                </div>
+
+                <!-- 项目 4 -->
+                <div class="group relative overflow-hidden rounded-2xl reveal cursor-pointer">
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?w=600&h=450&fit=crop" alt="Project 4" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-blue-400 text-sm font-semibold mb-2">电商平台</span>
+                        <h4 class="text-xl font-bold mb-2">ShopMaster</h4>
+                        <p class="text-gray-300 text-sm">B2C电商平台开发</p>
+                    </div>
+                </div>
+
+                <!-- 项目 5 -->
+                <div class="group relative overflow-hidden rounded-2xl reveal cursor-pointer" style="transition-delay: 100ms;">
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=600&h=450&fit=crop" alt="Project 5" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-purple-400 text-sm font-semibold mb-2">UI/UX设计</span>
+                        <h4 class="text-xl font-bold mb-2">Finance Dashboard</h4>
+                        <p class="text-gray-300 text-sm">金融数据可视化平台</p>
+                    </div>
+                </div>
+
+                <!-- 项目 6 -->
+                <div class="group relative overflow-hidden rounded-2xl reveal cursor-pointer" style="transition-delay: 200ms;">
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?w=600&h=450&fit=crop" alt="Project 6" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-pink-400 text-sm font-semibold mb-2">游戏开发</span>
+                        <h4 class="text-xl font-bold mb-2">CyberQuest</h4>
+                        <p class="text-gray-300 text-sm">独立游戏项目</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-32 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
+        <div class="absolute inset-0 grid-bg opacity-20"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 reveal">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                准备好开始您的<br>
+                <span class="text-gradient">下一个项目</span>了吗？
+            </h2>
+            <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+                让我们一起将您的想法变为现实。无论是品牌升级还是全新项目，我们都期待与您合作。
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#contact" class="btn-glow px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 inline-flex items-center justify-center">
+                    立即咨询
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+                <a href="mailto:hello@tjstudio.com" class="px-8 py-4 border border-white/30 rounded-full font-bold text-lg hover:bg-white/10 transition-all duration-300 backdrop-blur-sm inline-flex items-center justify-center">
+                    发送邮件
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系表单 Section -->
+    <section id="contact" class="py-32 bg-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div class="reveal">
+                    <h2 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-4">联系我们</h2>
+                    <h3 class="text-4xl md:text-5xl font-bold mb-6">让我们开始对话</h3>
+                    <p class="text-gray-400 text-lg mb-8">
+                        填写表单，我们会在24小时内回复您。或者您也可以通过以下方式直接联系我们。
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">电子邮件</h4>
+                                <p class="text-gray-400">leslie690306@outlook.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">工作室地址</h4>
+                                <p class="text-gray-400">Unknown</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-pink-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">电话</h4>
+                                <p class="text-gray-400">Unknown</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                        </a>
+                        <a href=https://github.com/Leslie690306 class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="reveal">
+                    <form class="space-y-6" onsubmit="event.preventDefault(); alert('感谢您的留言！我们会尽快与您联系。');">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-400 mb-2">姓名</label>
+                                <input type="text" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-blue-500 transition-colors text-white placeholder-gray-600" placeholder="您的姓名">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-400 mb-2">邮箱</label>
+                                <input type="email" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-blue-500 transition-colors text-white placeholder-gray-600" placeholder="your@email.com">
+                            </div>
+                        </div>
                         <div>
-                            <h4>地址</h4>
-                            <p>北京市朝阳区创意大厦8楼</p>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">项目类型</label>
+                            <select class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-blue-500 transition-colors text-white">
+                                <option value="" class="bg-gray-900">请选择项目类型</option>
+                                <option value="website" class="bg-gray-900">网站开发</option>
+                                <option value="app" class="bg-gray-900">移动应用</option>
+                                <option value="brand" class="bg-gray-900">品牌设计</option>
+                                <option value="other" class="bg-gray-900">其他</option>
+                            </select>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📞</div>
                         <div>
-                            <h4>电话</h4>
-                            <p>+86 10 1234 5678</p>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">项目描述</label>
+                            <textarea rows="4" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-blue-500 transition-colors text-white placeholder-gray-600 resize-none" placeholder="请简要描述您的项目需求..."></textarea>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">✉️</div>
-                        <div>
-                            <h4>邮箱</h4>
-                            <p>hello@creativestudio.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">🕐</div>
-                        <div>
-                            <h4>工作时间</h4>
-                            <p>周一至周五 9:00 - 18:00</p>
-                        </div>
-                    </div>
+                        <button type="submit" class="w-full btn-glow px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg font-bold text-lg text-white shadow-lg hover:shadow-blue-500/25 transition-all duration-300">
+                            发送消息
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 页脚 -->
-    <footer>
-        <div class="footer-content">
-            <div class="social-links">
-                <a href="#">📘</a>
-                <a href="#">🐦</a>
-                <a href="#">📷</a>
-                <a href="#">💼</a>
-                <a href="engindex.html">English</a>
+    <!-- Footer -->
+<footer class="bg-black border-t border-white/10 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-4 gap-8 mb-8">
+            <div class="col-span-2">
+                <div class="flex items-center mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-2">
+                        <span class="text-white font-bold text-sm">TJ</span>
+                    </div>
+                    <span class="text-xl font-bold">天际工作室</span>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
+                    专注于创造卓越的数字体验，将创意与技术完美融合，为品牌注入新的活力。
+                </p>
             </div>
-            <p>&copy; 2024-现在 天际工作室. 保留所有权利.</p>
+            <div>
+                <h4 class="font-bold mb-4">快速链接</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="#about" class="hover:text-white transition-colors">关于我们</a></li>
+                    <li><a href="#services" class="hover:text-white transition-colors">服务</a></li>
+                    <li><a href="#portfolio" class="hover:text-white transition-colors">作品</a></li>
+                    <li><a href="#contact" class="hover:text-white transition-colors">联系</a></li>
+					<li><a href=game.html class="hover:text-white transition-colors">小游戏</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">法律信息</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="privacy.html" class="hover:text-white transition-colors">隐私政策</a></li>
+                    <li><a href="terms.html" class="hover:text-white transition-colors">服务条款</a></li>
+                    <li><a href="cookies.html" class="hover:text-white transition-colors">Cookie政策</a></li>
+                </ul>
+            </div>
         </div>
-    </footer>
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-500 text-sm">
+                © <span id="copyright-year"></span> 天际工作室 TJStudio. All rights reserved.
+            </p>
+            <p class="text-gray-600 text-sm mt-2 md:mt-0">
+                Made with passion in Kunming
+            </p>
+        </div>
+    </div>
+</footer>
 
+<script>
+    // 动态设置版权年份
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+</script>
     <script>
-        // 平滑滚动
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // 导航栏滚动效果
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 100) {
-                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-            } else {
-                navbar.style.background = 'var(--white)';
-                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+        // 生成粒子背景
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                container.appendChild(particle);
             }
-        });
+        }
 
-        // 滚动动画
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+        // 滚动显示动画
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
                 }
             });
-        }, observerOptions);
+        }
 
-        document.querySelectorAll('.fade-in-up').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.6s ease-out';
-            observer.observe(el);
+        // 数字计数动画
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000; // 2秒
+                const increment = target / (duration / 16); // 60fps
+                
+                let current = 0;
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.innerText = Math.ceil(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.innerText = target + '+';
+                    }
+                };
+                
+                // 当元素进入视口时开始动画
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateCounter();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                });
+                
+                observer.observe(counter);
+            });
+        }
+
+        // 自定义光标效果（仅桌面端）
+        function initCursor() {
+            if (window.matchMedia("(pointer: coarse)").matches) return;
+            
+            const dot = document.getElementById('cursor-dot');
+            const outline = document.getElementById('cursor-outline');
+            
+            window.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+                
+                dot.style.left = `${posX}px`;
+                dot.style.top = `${posY}px`;
+                
+                outline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards" });
+            });
+            
+            // 悬停效果
+            const interactiveElements = document.querySelectorAll('a, button, .card-hover');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    outline.style.width = '50px';
+                    outline.style.height = '50px';
+                    outline.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    outline.style.width = '30px';
+                    outline.style.height = '30px';
+                    outline.style.backgroundColor = 'transparent';
+                });
+            });
+        }
+
+        // 导航栏滚动效果
+        function initNavbar() {
+            const navbar = document.getElementById('navbar');
+            let lastScroll = 0;
+            
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll > 100) {
+                    navbar.classList.add('shadow-lg');
+                } else {
+                    navbar.classList.remove('shadow-lg');
+                }
+                
+                lastScroll = currentScroll;
+            });
+        }
+
+        // 移动端菜单
+        function initMobileMenu() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const close = document.getElementById('close-menu');
+            const links = menu.querySelectorAll('a');
+            
+            btn.addEventListener('click', () => {
+                menu.classList.add('active');
+            });
+            
+            close.addEventListener('click', () => {
+                menu.classList.remove('active');
+            });
+            
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.remove('active');
+                });
+            });
+        }
+
+        // 平滑滚动
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // 视差滚动效果
+        function initParallax() {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const parallaxElements = document.querySelectorAll('.parallax');
+                
+                parallaxElements.forEach(el => {
+                    const speed = el.dataset.speed || 0.5;
+                    el.style.transform = `translateY(${scrolled * speed}px)`;
+                });
+            });
+        }
+
+        // 初始化所有功能
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            revealOnScroll();
+            animateCounters();
+            initCursor();
+            initNavbar();
+            initMobileMenu();
+            initSmoothScroll();
+            initParallax();
+            
+            window.addEventListener('scroll', revealOnScroll);
         });
 
-        // 表单提交处理
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('感谢您的留言！我们会尽快与您联系。');
-            this.reset();
-        });
-
-        // 添加鼠标跟随效果
-        document.addEventListener('mousemove', function(e) {
-            const cursor = document.createElement('div');
-            cursor.style.position = 'fixed';
-            cursor.style.width = '20px';
-            cursor.style.height = '20px';
-            cursor.style.background = 'rgba(59, 130, 246, 0.3)';
-            cursor.style.borderRadius = '50%';
-            cursor.style.pointerEvents = 'none';
-            cursor.style.left = e.clientX - 10 + 'px';
-            cursor.style.top = e.clientY - 10 + 'px';
-            cursor.style.transition = 'all 0.1s ease';
-            cursor.style.zIndex = '9999';
-            document.body.appendChild(cursor);
-
-            setTimeout(() => {
-                cursor.remove();
-            }, 100);
+        // 添加页面加载动画
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
         });
     </script>
 </body>
-
 </html>
-

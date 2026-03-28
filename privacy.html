@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隐私政策 | 天际工作室 TJStudio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .nav-glass {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-left: 4px solid #667eea;
+        }
+
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .policy-nav {
+            position: sticky;
+            top: 100px;
+        }
+
+        .policy-nav a {
+            transition: all 0.3s ease;
+            border-left: 2px solid transparent;
+        }
+
+        .policy-nav a:hover,
+        .policy-nav a.active {
+            border-left-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+            padding-left: 1rem;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        }
+
+        /* 打印样式 */
+        @media print {
+            .no-print { display: none; }
+            body { background: white; color: black; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="gradient-bg"></div>
+    <div class="grid-bg fixed inset-0 z-[-1] opacity-30"></div>
+
+    <!-- 导航栏 -->
+    <nav class="fixed w-full z-50 nav-glass transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer group">
+                    <div class="w-10 h-10 rounded-lg flex items-center justify-center mr-3 transform group-hover:rotate-12 transition-transform duration-300 overflow-hidden">
+                        <img src="icon.png" alt="TJStudio Logo" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <span class="text-2xl font-bold tracking-tighter">天际工作室</span>
+                        <span class="text-xs text-gray-400 block -mt-1 tracking-widest">TJSTUDIO</span>
+                    </div>
+                </a>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium">返回首页</a>
+                    <a href="terms.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium">服务条款</a>
+                    <a href="cookies.html" class="text-gray-300 hover:text-white transition-colors duration-300 text-sm font-medium">Cookie政策</a>
+                </div>
+
+                <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center reveal active">
+                <div class="inline-block px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-semibold mb-6">
+                    法律文件
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                    隐私<span class="text-gradient">政策</span>
+                </h1>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    最后更新日期：2024年1月1日
+                </p>
+                <p class="text-gray-500 text-sm mt-2">
+                    版本号：v2.0
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 主要内容 -->
+    <section class="py-12 pb-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-4 gap-12">
+                
+                <!-- 侧边导航 -->
+                <div class="hidden lg:block policy-nav reveal">
+                    <div class="content-section rounded-2xl p-6">
+                        <h3 class="font-bold text-lg mb-4 text-gray-200">目录</h3>
+                        <nav class="space-y-2">
+                            <a href="#intro" class="block py-2 text-sm text-gray-400 hover:text-white">引言</a>
+                            <a href="#collection" class="block py-2 text-sm text-gray-400 hover:text-white">信息收集</a>
+                            <a href="#usage" class="block py-2 text-sm text-gray-400 hover:text-white">信息使用</a>
+                            <a href="#sharing" class="block py-2 text-sm text-gray-400 hover:text-white">信息共享</a>
+                            <a href="#security" class="block py-2 text-sm text-gray-400 hover:text-white">信息安全</a>
+                            <a href="#rights" class="block py-2 text-sm text-gray-400 hover:text-white">您的权利</a>
+                            <a href="#cookies" class="block py-2 text-sm text-gray-400 hover:text-white">Cookie使用</a>
+                            <a href="#changes" class="block py-2 text-sm text-gray-400 hover:text-white">政策变更</a>
+                            <a href="#contact" class="block py-2 text-sm text-gray-400 hover:text-white">联系我们</a>
+                        </nav>
+                    </div>
+
+                    <div class="mt-6 content-section rounded-2xl p-6">
+                        <h3 class="font-bold text-sm mb-3 text-gray-300">相关链接</h3>
+                        <div class="space-y-2">
+                            <a href="terms.html" class="block text-sm text-blue-400 hover:text-blue-300">服务条款 →</a>
+                            <a href="cookies.html" class="block text-sm text-blue-400 hover:text-blue-300">Cookie政策 →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 内容区域 -->
+                <div class="lg:col-span-3 space-y-12">
+                    
+                    <!-- 引言 -->
+                    <div id="intro" class="reveal content-section rounded-2xl p-8 md:p-12">
+                        <div class="highlight-box rounded-lg p-6 mb-8">
+                            <p class="text-gray-300 leading-relaxed">
+                                天际工作室（"我们"、"我们的"或"公司"）高度重视您的隐私保护。本隐私政策旨在向您说明我们如何收集、使用、存储和保护您的个人信息。请仔细阅读本政策，以便了解我们对您隐私的承诺和实践。
+                            </p>
+                        </div>
+                        
+                        <h2 class="text-2xl font-bold mb-4 text-white">引言</h2>
+                        <p class="text-gray-400 mb-4 leading-relaxed">
+                            本隐私政策适用于天际工作室提供的所有产品、服务、网站和应用程序（统称为"服务"）。通过访问或使用我们的服务，即表示您同意本隐私政策中描述的做法。如果您不同意本政策的任何部分，请停止使用我们的服务。
+                        </p>
+                        <p class="text-gray-400 leading-relaxed">
+                            我们致力于保护您的个人隐私和数据安全，严格遵守《中华人民共和国个人信息保护法》、《中华人民共和国网络安全法》以及其他适用的数据保护法律法规。
+                        </p>
+                    </div>
+
+                    <div class="section-divider reveal"></div>
+
+                    <!-- 信息收集 -->
+                    <div id="collection" class="reveal content-section rounded-2xl p-8 md:p-12">
+                        <h2 class="text-2xl font-bold mb-6 text-white flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm mr-3">1</span>
+                            信息收集
+                        </h2>
+                        
+                        <div class="space-y-6 text-gray-400">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-200 mb-3">1.1 您直接提供的信息</h3>
+                                <p class="mb-3 leading-relaxed">当您使用我们的服务时，我们可能会收集您直接提供的以下信息：</p>
+                                <ul class="list-disc list-inside space-y-2 ml-4">
+                                    <li><strong class="text-gray-300">联系信息：</strong>姓名、电子邮件地址、电话号码、公司名称、职位</li>
+                                    <li><strong class="text-gray-300">账户信息：</strong>用户名、密码、账户设置和偏好</li>
+                                    <li><strong class="text-gray-300">项目信息：</strong>您在与我们合作过程中提供的项目需求、文档和沟通记录</li>
+                                    <li><strong class="text-gray-300">支付信息：</strong> billing地址、银行账户信息（通过安全的第三方支付处理器处理）</li>
+                                    <li><strong class="text-gray-300">沟通记录：</strong>您与我们的客服、销售团队的通话、邮件和聊天记录</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-200 mb-3">1.2 自动收集的信息</h3>
+                                <p class="mb-3 leading-relaxed">当您访问我们的网站或使用我们的服务时，我们会自动收集某些信息：</p>
+                                <ul class="list-disc list-inside space-y-2 ml-4">
+                                    <li><strong class="text-gray-300">设备信息：</strong>IP地址、浏览器类型和版本、操作系统、设备标识符</li>
+                                    <li><strong class="text-gray-300">使用数据：</strong>访问时间、浏览页面、点击流数据、在网站上花费的时间</li>
+                                    <li><strong class="text-gray-300">位置信息：</strong>基于IP地址的大致地理位置</li>
+                                    <li><strong class="text-gray-300">Cookie和类似技术：</strong>请参阅我们的 <a href="cookies.html" class="text-blue-400 hover:underline">Cookie政策</a></li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-200 mb-3">1.3 第三方来源</h3>
+                                <p class="leading-relaxed">我们可能会从合作伙伴、公开渠道或第三方服务提供商处获得您的信息，但仅限于法律允许且您已同意的情况下。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-divider reveal"></div>
+
+                    <!-- 信息使用 -->
+                    <div id="usage" class="reveal content-section rounded-2xl p-8 md:p-12">
+                        <h2 class="text-2xl font-bold mb-6 text-white flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center text-sm mr-3">2</span>
+                            信息使用
+                        </h2>
+                        
+                        <p class="text-gray-400 mb-6 leading-relaxed">我们将收集的信息用于以下目的：</p>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-white/5 rounded-xl p-6 border border-white/10">
+                                <div class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
+                                    <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="font-semibold text-gray-200 mb-2">提供服务</h3>
+                                <p class="text-sm text-gray-400">处理您的请求、管理您的账户、提供客户支持、完成交易</p>
+                            </div>
+
+                            <div class="bg-white/5 rounded-xl p-6 border border-white/10">
+                                <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
+                                    <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="font-semibold text-gray-200 mb-2">改进服务</h3>
+                                <p class="text-sm text-gray-400">分析使用趋势、优化用户体验、开发新功能、进行质量控制</p>
+                            </div>
+
+                            <div class="bg-white/5 rounded-xl p-6 border border-white/10">
+                                <div class="w-10 h-10 bg-pink-500/20 rounded-lg flex items-center justify-center mb-4">
+                                    <svg class="w-5 h-5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="font-semibold text-gray-200 mb-2">沟通交流</h3>
+                                <p class="text-sm text-gray-400">发送服务通知、更新信息、营销通讯（经您同意）</p>
+                            </div>
+
+                            <div class="bg-white/5 rounded-xl p-6 border border-white/10">
+                                <div class="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center mb-4">
+                                    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="font-semibold text-gray-200 mb-2">安全保障</h3>
+                                <p class="text-sm text-gray-400">防止欺诈、确保网络安全、遵守法律义务、执行我们的条款</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-divider reveal"></div>
+
+                    <!-- 信息共享 -->
+                    <div id="sharing" class="reveal content-section rounded-2xl p-8 md:p-12">
+                        <h2 class="text-2xl font-bold mb-6 text-white flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center text-sm mr-3">3</span>
+                            信息共享
+                        </h2>
+                        
+                        <p class="text-gray-400 mb-6 leading-relaxed">我们不会出售您的个人信息。仅在以下情况下，我们可能会与第三方共享您的信息：</p>
+
+                        <div class="space-y-6">
+                            <div class="border-l-4 border-blue-500 pl-6 py-2">
+                                <h3 class="text-lg font-semibold text-gray-200 mb-2">服务提供商</h3>
+                                <p class="text-gray-400 text-sm leading-relaxed">
+                                    我们可能会与为我们提供服务的第三方公司共享信息，如支付处理、数据分析、邮件发送、托管服务、客户服务等。这些提供商仅能访问履行其职能所需的信息，并受保密义务约束。
+                                </p>
+                            </div>
+
+                            <div class="border-l-4 border-purple-500 pl-6 py-2">
+                                <h3 class="text-lg font-semibold text-gray-200 mb-2">法律要求</h3>
+                                <p class="text-gray-400 text-sm leading-relaxed">
+                                    当法律要求、法院命令、政府要求或为了保护我们的权利、财产或安全，以及我们的用户或公众的安全时，我们可能会披露您的信息。
+                                </p>
+                            </div>
+
+                            <div class="border-l-4 border-pink-500 pl-6 py-2">
+                                <h3 class="text-lg font-semibold text-gray-200 mb-2">业务转让</h3>
+                                <p class="text-gray-400 text-sm leading-relaxed">
+                                    在公司合并、收购、重组或资产出售的情况下，您的信息可能作为转让资产的一部分被转移。我们将通过电子邮件或网站通知您此类变更。
+                                </p>
+                            </div>
+
+                            <div class="border-l-4 border-green-500 pl-6 py-2">
+                                <h3 class="text-lg font-semibold text-gray-200 mb-2">经您同意</h3>
+                                <p class="text-gray-400 text-sm leading-relaxed">
+                                    在其他任何情况下，我们仅在获得您的明确同意后才会共享您的个人信息。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-divider reveal"></div>
+
+                    <!-- 信息安全 -->
+                    <div id="security" class="reveal content-section rounded-2xl p-8 md:p-12">
+                        <h2 class="text-2xl font-bold mb-6 text-white flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-sm mr-3">4</span>
+                            信息安全
+                        </h2>
+                        
+                        <p class="text-gray-400 mb-6 leading-relaxed">
+                            我们采取适当的技术和组织措施来保护您的个人信息免受未经授权的访问、使用、披露、更改或破坏。
+                        </p>
+
+                        <div class="bg-white/5 rounded-xl p-6 mb-6 border border-white/10">
+                            <h3 class="font-semibold text-gray-200 mb-4">安全措施包括：</h3>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-400 text-sm">SSL/TLS加密传输</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-400 text-sm">防火墙和入侵检测系统</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-400 text-sm">定期安全审计和漏洞扫描</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-400 text-sm">员工数据安全培训</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-400 text-sm">严格的访问控制和权限管理</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-400 text-sm">数据备份和灾难恢复计划</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="highlight-box rounded-lg p-6">
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                <strong class="text-white">重要提示：</strong> 尽管我们采取了行业标准的安全措施，但互联网传输无法保证绝对安全。我们建议您也采取预防措施，如使用强密码、定期更改密码、不在公共场合泄露敏感信息。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="section-divider reveal"></div>
+
+                    <!-- 您的权利 -->
+                    <div id="rights" class="reveal content-section rounded-2xl p-8 md:p-12">
+                        <h2 class="text-2xl font-bold mb-6 text-white flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-yellow-500/20 text-yellow-400 flex items-center justify-center text-sm mr-3">5</span>
+                            您的权利
+                        </h2>
+                        
+                        <p class="text-gray-400 mb-6 leading-relaxed">
+                            根据适用的数据保护法律，您对您的个人信息享有以下权利：
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4 p-4 bg-white/5 rounded-lg border border-white/10 hover:border-blue-500/50 transition-colors">
+                                <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-blue-400 font-bold">1</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-200 mb-1">访问权</h3>
+                                    <p class="text-gray-400 text-sm">您有权获取我们持有的关于您的个人信息的副本。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4 p-4 bg-white/5 rounded-lg border border-white/10 hover:border-blue-500/50 transition-colors">
+                                <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-blue-400 font-bold">2</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-200 mb-1">更正权</h3>
+                                    <p class="text-gray-400 text-sm">您有权要求更正不准确或不完整的个人信息。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4 p-4 bg-white/5 rounded-lg border border-white/10 hover:border-blue-500/50 transition-colors">
+                                <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-blue-400 font-bold">3</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-200 mb-1">删除权</h3>
+                                    <p class="text-gray-400 text-sm">在某些情况下，您有权要求删除您的个人信息（"被遗忘权"）。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4 p-4 bg-white/5 rounded-lg border border-white/10 hover:border-blue-500/50 transition-colors">
+                                <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-blue-400 font-bold">4</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-200 mb-1">限制处理权</h3>
+                                    <p class="text-gray-400 text-sm">您有权要求限制对您个人信息的处理。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4 p-4 bg-white/5 rounded-lg border border-white/10 hover:border-blue-500/50 transition-colors">
+                                <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-blue-400 font-bold">5</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-200 mb-1">数据可携带权</h3>
+                                    <p class="text-gray-400 text-sm">您有权以结构化、通用的格式获取您的数据，并传输给其他服务提供商。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4 p-4 bg-white/5 rounded-lg border border-white/10 hover:border-blue-500/50 transition-colors">
+                                <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-blue-400 font-bold">6</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-200 mb-1">反对权</h3>
+                                    <p class="text-gray-400 text-sm">您有权反对基于合法利益的处理，以及直接营销。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 p-6 bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-xl border border-blue-500/20">
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                要行使上述任何权利，请通过本政策末尾提供的联系方式与我们联系。我们将在收到请求后的30天内回复。请注意，某些权利可能受法律限制，我们可能需要验证您的身份才能处理您的请求。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="section-divider reveal"></div>
+
+                    <!-- Cookie使用 -->
+                    <div id="cookies" class="reveal content-section rounded-2xl p-8 md:p-12">
+                        <h2 class="text-2xl font-bold mb-6 text-white flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-orange-500/20 text-orange-400 flex items-center justify-center text-sm mr-3">6</span>
+                            Cookie使用
+                        </h2>
+                        
+                        <p class="text-gray-400 mb-6 leading-relaxed">
+                            我们使用Cookie和类似技术来增强您的浏览体验、分析网站流量并个性化内容。有关我们使用的Cookie类型、目的以及如何管理Cookie偏好的详细信息，请参阅我们的 <a href="cookies.html" class="text-blue-400 hover:underline">Cookie政策</a>。
+                        </p>
+
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-white/5 rounded-lg p-4 border border-white/10 text-center">
+                                <div class="text-2xl mb-2">🍪</div>
+                                <h4 class="font-semibold text-gray-200 text-sm mb-1">必要Cookie</h4>
+                                <p class="text-xs text-gray-500">网站运行所必需</p>
+                            </div>
+                            <div class="bg-white/5 rounded-lg p-4 border border-white/10 text-center">
+                                <div class="text-2xl mb-2">📊</div>
+                                <h4 class="font-semibold text-gray-200 text-sm mb-1">分析Cookie</h4>
+                                <p class="text-xs text-gray-500">帮助我们改进网站</p>
+                            </div>
+                            <div class="bg-white/5 rounded-lg p-4 border border-white/10 text-center">
+                                <div class="text-2xl mb-2">🎯</div>
+                                <h4 class="font-semibold text-gray-200 text-sm mb-1">营销Cookie</h4>
+                                <p class="text-xs text-gray-500">提供个性化广告</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-divider reveal"></div>
+
+                    <!-- 政策变更 -->
+                    <div id="changes" class="reveal content-section rounded-2xl p-8 md:p-12">
+                        <h2 class="text-2xl font-bold mb-6 text-white flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center text-sm mr-3">7</span>
+                            政策变更
+                        </h2>
+                        
+                        <p class="text-gray-400 mb-6 leading-relaxed">
+                            我们可能会不时更新本隐私政策，以反映我们的实践变化或出于其他运营、法律或监管原因。任何变更将在本页面发布，并在适当情况下通过电子邮件通知您。
+                        </p>
+
+                        <div class="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-6">
+                            <div class="flex items-start space-x-3">
+                                <svg class="w-6 h-6 text-yellow-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                </svg>
+                                <div>
+                                    <h4 class="font-semibold text-yellow-400 mb-2">变更通知</h4>
+                                    <p class="text-gray-400 text-sm leading-relaxed">
+                                        本隐私政策的最后更新日期为页面顶部所示。我们鼓励您定期查看本政策，以了解我们如何保护您的信息。在本政策变更后继续使用我们的服务，即表示您接受修订后的政策。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-divider reveal"></div>
+
+                    <!-- 联系我们 -->
+                    <div id="contact" class="reveal content-section rounded-2xl p-8 md:p-12">
+                        <h2 class="text-2xl font-bold mb-6 text-white flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm mr-3">8</span>
+                            联系我们
+                        </h2>
+                        
+                        <p class="text-gray-400 mb-8 leading-relaxed">
+                            如果您对本隐私政策有任何疑问、担忧或请求，或者希望行使您的数据保护权利，请通过以下方式与我们联系：
+                        </p>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-white/5 rounded-xl p-6 border border-white/10 hover:border-blue-500/50 transition-colors">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-200">电子邮件</h4>
+                                        <p class="text-gray-400 text-sm">leslie690306@outlook.com</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-500 text-xs">数据保护相关问题</p>
+                            </div>
+
+                            <div class="bg-white/5 rounded-xl p-6 border border-white/10 hover:border-purple-500/50 transition-colors">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-200">电子邮件地址</h4>
+                                        <p class="text-gray-400 text-sm">leslie233789@outlook.com</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-500 text-xs">天际工作室 数据保护官</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 p-6 bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-xl border border-blue-500/20">
+                            <h4 class="font-semibold text-gray-200 mb-3">数据保护官（DPO）</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-3">
+                                我们已任命一名数据保护官负责监督隐私政策的实施，并确保我们遵守数据保护法律。如果您对我们的数据处理方式有任何疑虑，欢迎直接联系我们的DPO。
+                            </p>
+                            <p class="text-gray-400 text-sm">
+                                <strong class="text-gray-300">DPO邮箱：</strong> leslie233789@outlook.com
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- Footer -->
+<footer class="bg-black border-t border-white/10 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-4 gap-8 mb-8">
+            <div class="col-span-2">
+                <div class="flex items-center mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-2">
+                        <span class="text-white font-bold text-sm">TJ</span>
+                    </div>
+                    <span class="text-xl font-bold">天际工作室</span>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
+                    专注于创造卓越的数字体验，将创意与技术完美融合，为品牌注入新的活力。
+                </p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">快速链接</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="#about" class="hover:text-white transition-colors">关于我们</a></li>
+                    <li><a href="#services" class="hover:text-white transition-colors">服务</a></li>
+                    <li><a href="#portfolio" class="hover:text-white transition-colors">作品</a></li>
+                    <li><a href="#contact" class="hover:text-white transition-colors">联系</a></li>
+					<li><a href=game.html class="hover:text-white transition-colors">小游戏</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">法律信息</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="privacy.html" class="hover:text-white transition-colors">隐私政策</a></li>
+                    <li><a href="terms.html" class="hover:text-white transition-colors">服务条款</a></li>
+                    <li><a href="cookies.html" class="hover:text-white transition-colors">Cookie政策</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-500 text-sm">
+                © <span id="copyright-year"></span> 天际工作室 TJStudio. All rights reserved.
+            </p>
+            <p class="text-gray-600 text-sm mt-2 md:mt-0">
+                Made with passion in Kunming
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // 动态设置版权年份
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+</script>
+
+    <script>
+        // 滚动显示动画
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        // 导航栏滚动效果
+        function initNavbar() {
+            const navbar = document.getElementById('navbar');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 100) {
+                    navbar.classList.add('shadow-lg');
+                } else {
+                    navbar.classList.remove('shadow-lg');
+                }
+            });
+        }
+
+        // 侧边导航高亮
+        function initSideNav() {
+            const sections = document.querySelectorAll('div[id]');
+            const navLinks = document.querySelectorAll('.policy-nav a[href^="#"]');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // 平滑滚动
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            revealOnScroll();
+            initNavbar();
+            initSideNav();
+            initSmoothScroll();
+            window.addEventListener('scroll', revealOnScroll);
+        });
+    </script>
+</body>
+</html>
